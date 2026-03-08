@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Excluir Tarefa
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h3 class="display-4 text-danger">Excluir Tarefa</h3>
+
+    <div class="card mt-3">
+      <div class="card-body">
+        <p>Tem certeza que deseja excluir a tarefa <strong>"{{ object.title }}"</strong>?</p>
+        <p class="text-muted">Esta ação não pode ser desfeita.</p>
+
+        <form method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Sim, excluir</button>
+          <a href="{% url 'task_detail' object.pk %}" class="btn btn-secondary ms-2">Cancelar</a>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

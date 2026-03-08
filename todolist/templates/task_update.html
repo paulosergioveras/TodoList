@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Editar Tarefa
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h3 class="display-4">Editar Tarefa</h3>
+
+    <div class="card mt-3">
+      <div class="card-body">
+        <form method="post" class="form">
+          {% csrf_token %}
+
+          <div class="mb-3">
+            <label for="{{ form.title.id_for_label }}" class="form-label">Título *</label>
+            {{ form.title }}
+            {% if form.title.errors %}
+              <div class="text-danger small mt-1">{{ form.title.errors }}</div>
+            {% endif %}
+          </div>
+
+          <div class="mb-3">
+            <label for="{{ form.description.id_for_label }}" class="form-label">Descrição</label>
+            {{ form.description }}
+            {% if form.description.errors %}
+              <div class="text-danger small mt-1">{{ form.description.errors }}</div>
+            {% endif %}
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="{{ form.due_data.id_for_label }}" class="form-label">Data Limite *</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-calendar-event"></i></span>
+                  {{ form.due_data }}
+                </div>
+                {% if form.due_data.errors %}
+                  <div class="text-danger small mt-1">{{ form.due_data.errors }}</div>
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="{{ form.priority.id_for_label }}" class="form-label">Prioridade</label>
+                {{ form.priority }}
+                {% if form.priority.errors %}
+                  <div class="text-danger small mt-1">{{ form.priority.errors }}</div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+        </form>
+      </div>
+    </div>
+
+    <a href="{% url 'task_detail' object.pk %}" class="btn btn-secondary mt-3">Voltar para detalhes</a>
+  </div>
+{% endblock %}

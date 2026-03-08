@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Detalhes da Tarefa
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-start mb-4">
+      <div>
+        <h1 class="display-4">{{ object.title }}</h1>
+        <p class="text-muted">Criada em: {{ object.created_at|date:"d/m/Y H:i" }}</p>
+      </div>
+      <div class="btn-group">
+        <a href="{% url 'task_update' object.pk %}" class="btn btn-warning">
+          <i class="bi bi-pencil"></i> Editar
+        </a>
+        <a href="{% url 'task_delete' object.pk %}" class="btn btn-danger">
+          <i class="bi bi-trash"></i> Excluir
+        </a>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <h6 class="text-uppercase text-muted">Descrição</h6>
+            <p>{{ object.description|default:"(Sem descrição)" }}</p>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <h6 class="text-uppercase text-muted">Detalhes</h6>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <strong>Data Limite:</strong> {{ object.due_data|date:"d/m/Y" }}
+              </li>
+              <li class="list-group-item">
+                <strong>Prioridade:</strong>
+                {% if object.priority == 'HIGH' %}
+                  <span class="badge badge-priority bg-danger text-dark">Alta</span>
+                {% elif object.priority == 'MEDIUM' %}
+                  <span class="badge badge-priority bg-warning text-dark">Média</span>
+                {% elif object.priority == 'LOW' %}
+                  <span class="badge badge-priority bg-info text-dark">Baixa</span>
+                {% else %}
+                  <span class="badge badge-priority bg-secondary text-dark">Nenhuma</span>
+                {% endif %}
+              </li>
+              <li class="list-group-item">
+                <strong>Status:</strong>
+                {% if object.completed %}
+                  <span class="badge bg-success"><i class="bi bi-check-circle"></i> Concluída</span>
+                {% else %}
+                  <span class="badge bg-warning text-dark"><i class="bi bi-hourglass-split"></i> Pendente</span>
+                {% endif %}
+              </li>
+              <li class="list-group-item">
+                <strong>Atrasada:</strong>
+                {% if object.is_overdue %}
+                  <span class="text-danger"><i class="bi bi-exclamation-circle"></i> Sim</span>
+                {% else %}
+                  <span class="text-success"><i class="bi bi-check2-circle"></i> Não</span>
+                {% endif %}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a href="{% url 'task_list' %}" class="btn btn-secondary">Voltar para a lista</a>
+  </div>
+{% endblock %}
