@@ -1,19 +1,308 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" data-bs-theme="dark">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
 
-        <title>{% block title %}{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    </head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
-    <body>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --bg-2: #070b17;
+      --card: rgba(255, 255, 255, 0.07);
+      --card-border: rgba(255, 255, 255, 0.14);
+      --muted: rgba(255, 255, 255, 0.68);
+      --text: rgba(255, 255, 255, 0.92);
+      --accent: #4f9dff;
+      --accent-2: #35d18b;
+      --shadow: 0 12px 36px rgba(0, 0, 0, 0.55);
+      --radius: 1rem;
+    }
 
-    </body>
-    
+    html, body {
+      height: 100%;
+      background: radial-gradient(circle at 20% 10%, rgba(79, 157, 255, 0.2), transparent 55%),
+                  radial-gradient(circle at 80% 90%, rgba(53, 209, 139, 0.14), transparent 55%),
+                  linear-gradient(135deg, var(--bg), var(--bg-2) 90%);
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text);
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .navbar {
+      background: rgba(18, 23, 39, 0.72);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .navbar .nav-link {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .navbar .nav-link:hover {
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .card-body {
+      padding: 1.8rem;
+    }
+
+    .card-panel {
+      max-width: 1040px;
+      margin: 0 auto;
+      border-radius: calc(var(--radius) + 0.15rem);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+    }
+
+    .card-panel .card-body {
+      padding: 1.25rem 1.5rem;
+    }
+
+    .table {
+      color: var(--text);
+    }
+
+    .table thead th {
+      border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .form-control,
+    .form-select {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: var(--text);
+      border-radius: 0.85rem;
+      min-height: 46px;
+      padding: 0.65rem 1rem;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    .form-select {
+      padding-right: 2.5rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='rgba(255,255,255,0.8)' class='bi bi-caret-down-fill' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658c-.566-.63-.106-1.658.753-1.658h9.592c.86 0 1.319 1.028.753 1.658l-4.796 5.482a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1.1rem;
+    }
+
+    .form-select option {
+      color: var(--text);
+      background: rgba(0, 0, 0, 0.85);
+    }
+
+    label.form-label {
+      color: var(--text);
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      border-color: var(--accent);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 0.25rem rgba(79, 157, 255, 0.25);
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      border-color: var(--accent);
+      font-weight: 600;
+      border-radius: 0.85rem;
+      padding: 0.6rem 1.2rem;
+      box-shadow: 0 12px 24px rgba(79, 157, 255, 0.18);
+    }
+
+    .btn-primary:hover {
+      background-color: rgba(79, 157, 255, 0.9);
+      border-color: rgba(79, 157, 255, 0.9);
+    }
+
+    .btn-secondary {
+      background-color: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.16);
+      color: var(--text);
+      border-radius: 0.85rem;
+      padding: 0.6rem 1.2rem;
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .display-4 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      font-size: 2.6rem;
+    }
+
+    .page-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+
+    .page-subtitle {
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 0.25rem;
+      margin-bottom: 0;
+      font-size: 1rem;
+    }
+
+    .text-muted {
+      color: var(--muted) !important;
+    }
+
+    .table-hover tbody tr:hover {
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .badge {
+      font-weight: 500;
+    }
+
+    .btn-group {
+      display: inline-flex;
+      gap: 0.35rem;
+    }
+
+    .btn-group .btn {
+      min-width: 44px;
+      border-radius: 0.75rem;
+      border: none;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+    }
+
+    .btn-action {
+      color: #000;
+      font-weight: 600;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+    }
+
+    .btn-action-primary {
+      background: var(--accent);
+    }
+
+    .btn-action-warning {
+      background: #ffd24d;
+    }
+
+    .btn-action-danger {
+      background: #ff4d4d;
+    }
+
+    .btn-action:hover {
+      opacity: 0.92;
+    }
+
+    .badge-priority {
+      border: none;
+    }
+
+    .btn-action-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .btn-action-warning {
+      background: #ffd24d;
+      border-color: #ffd24d;
+    }
+
+    .btn-action-danger {
+      background: #ff4d4d;
+      border-color: #ff4d4d;
+    }
+
+    .btn-action:hover {
+      opacity: 0.92;
+    }
+
+    .input-group-text {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: var(--text);
+      border-radius: 0.85rem 0 0 0.85rem;
+    }
+
+    .footer {
+      background: rgba(6, 10, 18, 0.8);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 1.5rem 0;
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 0.9rem;
+    }
+
+    .footer a {
+      color: rgba(255, 255, 255, 0.72);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    @media (max-width: 576px) {
+      .card-body {
+        padding: 1.2rem;
+      }
+
+      .display-4 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  {% include 'components/_header.html' %}
+
+  <div class="container-fluid">
+
+      <div class="col py-3">
+
+        <div class="container mt-4">
+          <main>
+            {% block content %}
+            {% endblock %}
+          </main>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  {% include 'components/_footer.html' %}
+</body>
+
 </html>
