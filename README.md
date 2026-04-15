@@ -10,7 +10,7 @@ A simple To-Do list application built with **Django** using server-rendered temp
 
 ```bash
 git clone <repo-url>
-cd to-do-list-django-fullstack
+cd TodoList
 ```
 
 ### 2) Create a Python virtual environment
